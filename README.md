@@ -2,7 +2,6 @@
 
 A web-based dashboard application for monitoring environmental sensor data (temperature, humidity, and CO2) from IoT devices using ThingSpeak as the data storage platform.
 
-![IoT Dashboard](https://i.imgur.com/example.png) <!-- Replace with actual screenshot when available -->
 
 ## Overview
 
@@ -126,9 +125,6 @@ If you encounter any issues:
 - Support for additional sensor types
 - Mobile app integration
 
-## License
-
-This project is open-source and available under the MIT License.
 
 ## Acknowledgments
 
