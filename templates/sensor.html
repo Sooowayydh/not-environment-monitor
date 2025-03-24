@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ sensor_type|title }} Sensor Data | IoT Environmental Station</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">IoT Environmental Station</div>
+            <nav class="nav-links">
+                <a href="{{ url_for('home') }}"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="{{ url_for('sensor', type='temperature') }}" {% if sensor_type == 'temperature' %}style="background-color: rgba(255, 255, 255, 0.2);"{% endif %}><i class="fas fa-thermometer-half"></i> Temperature</a>
+                <a href="{{ url_for('sensor', type='humidity') }}" {% if sensor_type == 'humidity' %}style="background-color: rgba(255, 255, 255, 0.2);"{% endif %}><i class="fas fa-tint"></i> Humidity</a>
+                <a href="{{ url_for('sensor', type='co2') }}" {% if sensor_type == 'co2' %}style="background-color: rgba(255, 255, 255, 0.2);"{% endif %}><i class="fas fa-wind"></i> CO₂</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="dashboard">
+            <div class="dashboard-header">
+                <h1>
+                    {% if sensor_type == 'temperature' %}
+                        <i class="fas fa-thermometer-half"></i> Temperature History
+                    {% elif sensor_type == 'humidity' %}
+                        <i class="fas fa-tint"></i> Humidity History
+                    {% elif sensor_type == 'co2' %}
+                        <i class="fas fa-wind"></i> CO₂ History
+                    {% endif %}
+                </h1>
+                <p>Showing data from the last 5 hours</p>
+            </div>
+
+            {% if feeds %}
+            <div class="sensor-table-container">
+                <table class="sensor-table">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>
+                                {% if sensor_type == 'temperature' %}
+                                    Temperature (°C)
+                                {% elif sensor_type == 'humidity' %}
+                                    Humidity (%)
+                                {% elif sensor_type == 'co2' %}
+                                    CO₂ (ppm)
+                                {% endif %}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for feed in feeds %}
+                        <tr>
+                            <td>{{ feed.created_at }}</td>
+                            <td>
+                                {% if sensor_type == 'temperature' %}
+                                    {{ feed.field1 }}
+                                {% elif sensor_type == 'humidity' %}
+                                    {{ feed.field2 }}
+                                {% elif sensor_type == 'co2' %}
+                                    {{ feed.field3 }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="no-data-message">
+                <h2><i class="fas fa-exclamation-circle"></i> No {{ sensor_type|title }} Data Available</h2>
+                <p>There is no {{ sensor_type }} data from the last 5 hours. Please check if your sensors are correctly configured and sending data.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 IoT Environmental Station Dashboard. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for interactive features -->
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+    
+    <script>
+        // Auto-refresh the page every 60 seconds to get latest data
+        setTimeout(function() {
+            window.location.reload();
+        }, 60000);
+    </script>
+</body>
+</html>

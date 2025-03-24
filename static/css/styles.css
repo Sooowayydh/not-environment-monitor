@@ -1,0 +1,319 @@
+/* Main Styles for IoT Dashboard */
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #3498db;
+  --accent-color: #e74c3c;
+  --light-bg: #ecf0f1;
+  --dark-text: #2c3e50;
+  --light-text: #ffffff;
+  --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --success-color: #27ae60;
+  --warning-color: #f39c12;
+  --danger-color: #c0392b;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--light-bg);
+  color: var(--dark-text);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header Styles */
+header {
+  background-color: var(--primary-color);
+  color: var(--light-text);
+  padding: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: var(--light-text);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.nav-links a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Dashboard Main Content */
+.dashboard {
+  margin-top: 2rem;
+}
+
+.dashboard-header {
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.dashboard-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: var(--primary-color);
+}
+
+.dashboard-header p {
+  color: #7f8c8d;
+  margin-top: 0.5rem;
+}
+
+.refresh-info {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  background-color: rgba(236, 240, 241, 0.7);
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+/* Sensor Cards */
+.sensor-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 2rem;
+}
+
+.sensor-card {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sensor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  padding: 15px 20px;
+  background-color: var(--secondary-color);
+  color: white;
+  font-weight: bold;
+}
+
+.card-body {
+  padding: 20px;
+  position: relative;
+}
+
+.sensor-value {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 10px 0;
+  color: var(--primary-color);
+}
+
+.sensor-unit {
+  font-size: 1rem;
+  color: #7f8c8d;
+}
+
+.sensor-timestamp {
+  font-size: 0.8rem;
+  color: #95a5a6;
+  margin-top: 15px;
+}
+
+/* Status Indicators */
+.status-indicator {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.status-indicator.normal {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.status-indicator.cold,
+.status-indicator.dry,
+.status-indicator.low {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.status-indicator.hot,
+.status-indicator.humid,
+.status-indicator.high {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+/* Temperature specific styling */
+.sensor-card.temperature .card-header {
+  background-color: var(--accent-color);
+}
+
+.sensor-card.temperature.normal .card-header {
+  background-color: var(--success-color);
+}
+
+.sensor-card.temperature.cold .card-header {
+  background-color: var(--secondary-color);
+}
+
+.sensor-card.temperature.hot .card-header {
+  background-color: var(--danger-color);
+}
+
+/* Humidity specific styling */
+.sensor-card.humidity .card-header {
+  background-color: var(--secondary-color);
+}
+
+.sensor-card.humidity.normal .card-header {
+  background-color: var(--success-color);
+}
+
+.sensor-card.humidity.dry .card-header {
+  background-color: var(--warning-color);
+}
+
+.sensor-card.humidity.humid .card-header {
+  background-color: var(--secondary-color);
+}
+
+/* CO2 specific styling */
+.sensor-card.co2 .card-header {
+  background-color: var(--success-color);
+}
+
+.sensor-card.co2.normal .card-header {
+  background-color: var(--success-color);
+}
+
+.sensor-card.co2.low .card-header {
+  background-color: var(--warning-color);
+}
+
+.sensor-card.co2.high .card-header {
+  background-color: var(--danger-color);
+}
+
+/* Sensor Data Table */
+.sensor-table-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  margin-top: 2rem;
+}
+
+.sensor-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sensor-table th {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.sensor-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.sensor-table tr:last-child td {
+  border-bottom: none;
+}
+
+.sensor-table tr:hover {
+  background-color: rgba(236, 240, 241, 0.5);
+}
+
+/* No data message */
+.no-data-message {
+  background-color: white;
+  border-radius: 8px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: var(--card-shadow);
+  margin-top: 2rem;
+}
+
+.no-data-message h2 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.no-data-message p {
+  color: #7f8c8d;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Footer */
+footer {
+  background-color: var(--primary-color);
+  color: var(--light-text);
+  padding: 1rem 0;
+  margin-top: 3rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sensor-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  header .container {
+    flex-direction: column;
+    padding-bottom: 1rem;
+  }
+  
+  .nav-links {
+    margin-top: 1rem;
+  }
+  
+  .dashboard-header {
+    text-align: center;
+  }
+  
+  .refresh-info {
+    position: static;
+    margin-top: 10px;
+    text-align: center;
+  }
+} 

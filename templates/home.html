@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Environmental Station | Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">IoT Environmental Station</div>
+            <nav class="nav-links">
+                <a href="{{ url_for('home') }}"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="{{ url_for('sensor', type='temperature') }}"><i class="fas fa-thermometer-half"></i> Temperature</a>
+                <a href="{{ url_for('sensor', type='humidity') }}"><i class="fas fa-tint"></i> Humidity</a>
+                <a href="{{ url_for('sensor', type='co2') }}"><i class="fas fa-wind"></i> CO₂</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="dashboard">
+            <div class="dashboard-header">
+                <h1>{{ channel_name }} Dashboard</h1>
+                <p>Real-time environmental data from IoT sensors</p>
+            </div>
+
+            {% if has_data %}
+            <div class="sensor-cards">
+                <!-- Temperature Card -->
+                <div class="sensor-card temperature">
+                    <div class="card-header">
+                        <i class="fas fa-thermometer-half"></i> Temperature
+                    </div>
+                    <div class="card-body">
+                        <div class="sensor-value">{{ feed.field1 }} <span class="sensor-unit">°C</span></div>
+                        <div class="sensor-timestamp">
+                            <i class="far fa-clock"></i> Updated: {{ feed.created_at }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Humidity Card -->
+                <div class="sensor-card humidity">
+                    <div class="card-header">
+                        <i class="fas fa-tint"></i> Humidity
+                    </div>
+                    <div class="card-body">
+                        <div class="sensor-value">{{ feed.field2 }} <span class="sensor-unit">%</span></div>
+                        <div class="sensor-timestamp">
+                            <i class="far fa-clock"></i> Updated: {{ feed.created_at }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CO2 Card -->
+                <div class="sensor-card co2">
+                    <div class="card-header">
+                        <i class="fas fa-wind"></i> CO₂
+                    </div>
+                    <div class="card-body">
+                        <div class="sensor-value">{{ feed.field3 }} <span class="sensor-unit">ppm</span></div>
+                        <div class="sensor-timestamp">
+                            <i class="far fa-clock"></i> Updated: {{ feed.created_at }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="no-data-message">
+                <h2><i class="fas fa-exclamation-circle"></i> No Sensor Data Available</h2>
+                <p>The channel exists but no sensor readings have been uploaded yet. You may need to configure your sensors to send data to this ThingSpeak channel.</p>
+                <p>Please use your ThingSpeak Write API Key from your config.py file to send data to this channel.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- <footer>
+        <div class="container">
+            <p>&copy; 2025 IoT Environmental Station Dashboard. All rights reserved.</p>
+        </div>
+    </footer> -->
+
+    <!-- JavaScript for interactive features -->
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+    
+    <script>
+        // Auto-refresh the page every 60 seconds to get latest data
+        setTimeout(function() {
+            window.location.reload();
+        }, 60000);
+    </script>
+</body>
+</html>
